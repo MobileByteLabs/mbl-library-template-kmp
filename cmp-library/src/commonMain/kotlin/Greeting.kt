@@ -13,9 +13,7 @@ class Greeting {
      *
      * @return A greeting string containing the platform name
      */
-    fun greet(): String {
-        return "Hello from ${getPlatformName()}!"
-    }
+    fun greet(): String = "Hello from ${getPlatformName()}!"
 
     /**
      * Returns a personalized greeting.
@@ -23,9 +21,7 @@ class Greeting {
      * @param name The name to greet
      * @return A personalized greeting string
      */
-    fun greet(name: String): String {
-        return "Hello, $name! Welcome from ${getPlatformName()}."
-    }
+    fun greet(name: String): String = "Hello, $name! Welcome from ${getPlatformName()}."
 }
 
 /**

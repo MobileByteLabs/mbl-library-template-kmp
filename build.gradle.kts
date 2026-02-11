@@ -44,7 +44,7 @@ spotless {
                     "ktlint_function_naming_ignore_when_annotated_with" to "Composable",
                     "ktlint_standard_function-naming" to "disabled",
                     "ktlint_standard_package-name" to "disabled",
-                )
+                ),
             )
         trimTrailingWhitespace()
         indentWithSpaces(4)
