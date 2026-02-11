@@ -14,4 +14,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "template-library"
-include(":library")
+include(":cmp-library")

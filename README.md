@@ -9,12 +9,18 @@ A Kotlin Multiplatform library for [describe your library purpose here].
 
 ## Supported Platforms
 
-| Platform | Status |
-|----------|--------|
-| Android  | Supported |
-| iOS      | Supported |
-| JVM      | Supported |
-| Linux    | Supported |
+| Platform | Targets | Status |
+|----------|---------|--------|
+| Android  | android | Supported |
+| iOS      | iosX64, iosArm64, iosSimulatorArm64 | Supported |
+| macOS    | macosX64, macosArm64 | Supported |
+| tvOS     | tvosX64, tvosArm64, tvosSimulatorArm64 | Supported |
+| watchOS  | watchosX64, watchosArm32, watchosArm64, watchosSimulatorArm64, watchosDeviceArm64 | Supported |
+| JVM      | jvm | Supported |
+| Linux    | linuxX64, linuxArm64 | Supported |
+| Windows  | mingwX64 | Supported |
+| JavaScript | js (Browser, Node.js) | Supported |
+| WebAssembly | wasmJs (Browser, Node.js), wasmWasi (Node.js) | Supported |
 
 ## Installation
 
@@ -132,7 +138,7 @@ bash scripts/setup-hooks.sh
 
 ### Release Process
 
-1. Update version in `library/build.gradle.kts`
+1. Update version in `cmp-library/build.gradle.kts`
 2. Create a GitHub release with a tag (e.g., `v1.0.0`)
 3. The publish workflow will automatically deploy to Maven Central
 
@@ -140,14 +146,18 @@ bash scripts/setup-hooks.sh
 
 ```
 .
-├── library/                    # Library module
+├── cmp-library/                # Library module
 │   └── src/
-│       ├── commonMain/         # Common code
+│       ├── commonMain/         # Common code (all platforms)
 │       ├── commonTest/         # Common tests
 │       ├── androidMain/        # Android-specific code
-│       ├── iosMain/            # iOS-specific code
 │       ├── jvmMain/            # JVM-specific code
-│       └── linuxX64Main/       # Linux-specific code
+│       ├── appleMain/          # Apple platforms (iOS, macOS, tvOS, watchOS)
+│       ├── linuxMain/          # Linux platforms (linuxX64, linuxArm64)
+│       ├── mingwMain/          # Windows (mingwX64)
+│       ├── jsMain/             # JavaScript (Browser, Node.js)
+│       ├── wasmJsMain/         # WebAssembly JS
+│       └── wasmWasiMain/       # WebAssembly WASI
 ├── scripts/                    # Automation scripts
 │   ├── pre-commit.sh           # Pre-commit hook
 │   ├── pre-push.sh             # Pre-push hook
