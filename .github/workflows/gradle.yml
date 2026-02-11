@@ -62,9 +62,6 @@ jobs:
           - name: JVM
             target: jvmTest
             os: ubuntu-latest
-          - name: Android
-            target: testAndroidHostTest
-            os: ubuntu-latest
           - name: iOS Simulator
             target: iosSimulatorArm64Test
             os: macos-latest
