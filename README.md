@@ -1,19 +1,189 @@
-[![official project](http://jb.gg/badges/official.svg)](https://github.com/JetBrains#jetbrains-on-github)
+# TEMPLATE_LIBRARY_NAME
 
-# Multiplatform library template
+[![CI](https://github.com/TEMPLATE_ORG/TEMPLATE_REPO/actions/workflows/gradle.yml/badge.svg)](https://github.com/TEMPLATE_ORG/TEMPLATE_REPO/actions/workflows/gradle.yml)
+[![Maven Central](https://img.shields.io/maven-central/v/TEMPLATE_PACKAGE/template-library.svg)](https://central.sonatype.com/artifact/TEMPLATE_PACKAGE/template-library)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.1.0-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-## What is it?
+A Kotlin Multiplatform library for [describe your library purpose here].
 
-This repository contains a simple library project, intended to demonstrate a [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) library that is deployable to [Maven Central](https://central.sonatype.com/).
+## Supported Platforms
 
-The library has only one function: generate the [Fibonacci sequence](https://en.wikipedia.org/wiki/Fibonacci_sequence) starting from platform-provided numbers. Also, it has a test for each platform just to be sure that tests run.
+| Platform | Status |
+|----------|--------|
+| Android  | Supported |
+| iOS      | Supported |
+| JVM      | Supported |
+| Linux    | Supported |
 
-Note that no other actions or tools usually required for the library development are set up, such as [tracking of backwards compatibility](https://kotlinlang.org/docs/jvm-api-guidelines-backward-compatibility.html#tools-designed-to-enforce-backward-compatibility), explicit API mode, licensing, contribution guideline, code of conduct and others. You can find a guide for best practices for designing Kotlin libraries [here](https://kotlinlang.org/docs/api-guidelines-introduction.html).
+## Installation
 
-## Guide
+Add the dependency to your `build.gradle.kts`:
 
-Please find the detailed guide [here](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-libraries.html).
+```kotlin
+// In your shared module
+kotlin {
+    sourceSets {
+        commonMain.dependencies {
+            implementation("TEMPLATE_PACKAGE:template-library:1.0.0")
+        }
+    }
+}
+```
 
-# Other resources
-* [Publishing via the Central Portal](https://central.sonatype.org/publish-ea/publish-ea-guide/)
-* [Gradle Maven Publish Plugin \- Publishing to Maven Central](https://vanniktech.github.io/gradle-maven-publish-plugin/central/)
+### Platform-specific setup
+
+<details>
+<summary>Android</summary>
+
+No additional setup required.
+
+</details>
+
+<details>
+<summary>iOS</summary>
+
+No additional setup required.
+
+</details>
+
+## Quick Start
+
+```kotlin
+import TEMPLATE_PACKAGE.Greeting
+
+fun main() {
+    val greeting = Greeting()
+    println(greeting.greet()) // Hello from [Platform]!
+    println(greeting.greet("World")) // Hello, World! Welcome from [Platform].
+}
+```
+
+## Documentation
+
+For detailed documentation, visit [Documentation Link].
+
+## Getting Started with Development
+
+### Prerequisites
+
+- JDK 17 or higher
+- Android SDK (for Android development)
+- Xcode 15+ (for iOS development, macOS only)
+
+### Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/TEMPLATE_ORG/TEMPLATE_REPO.git
+cd TEMPLATE_REPO
+```
+
+2. Customize the template (first time only):
+```bash
+bash customizer.sh com.yourpackage.library YourLibraryName your-org
+```
+
+3. Set up git hooks:
+```bash
+bash scripts/setup-hooks.sh
+```
+
+4. Build the project:
+```bash
+./gradlew build
+```
+
+### Running Tests
+
+```bash
+# All platforms
+./gradlew allTests
+
+# Specific platforms
+./gradlew jvmTest
+./gradlew iosSimulatorArm64Test
+./gradlew testAndroidHostTest
+./gradlew linuxX64Test
+```
+
+### Code Quality
+
+```bash
+# Format code
+./gradlew spotlessApply
+
+# Run static analysis
+./gradlew detekt
+```
+
+## Publishing to Maven Central
+
+### Prerequisites
+
+1. Create a [Sonatype account](https://central.sonatype.com/)
+2. Generate a GPG key for signing
+3. Configure GitHub secrets:
+   - `MAVEN_CENTRAL_USERNAME` - Sonatype username
+   - `MAVEN_CENTRAL_PASSWORD` - Sonatype password
+   - `SIGNING_KEY_ID` - GPG key ID
+   - `SIGNING_PASSWORD` - GPG key password
+   - `GPG_KEY_CONTENTS` - Base64 encoded GPG private key
+
+### Release Process
+
+1. Update version in `library/build.gradle.kts`
+2. Create a GitHub release with a tag (e.g., `v1.0.0`)
+3. The publish workflow will automatically deploy to Maven Central
+
+## Project Structure
+
+```
+.
+├── library/                    # Library module
+│   └── src/
+│       ├── commonMain/         # Common code
+│       ├── commonTest/         # Common tests
+│       ├── androidMain/        # Android-specific code
+│       ├── iosMain/            # iOS-specific code
+│       ├── jvmMain/            # JVM-specific code
+│       └── linuxX64Main/       # Linux-specific code
+├── scripts/                    # Automation scripts
+│   ├── pre-commit.sh           # Pre-commit hook
+│   ├── pre-push.sh             # Pre-push hook
+│   └── setup-hooks.sh          # Hook setup script
+├── config/
+│   └── detekt/                 # Detekt configuration
+├── .github/
+│   ├── workflows/              # GitHub Actions
+│   └── ISSUE_TEMPLATE/         # Issue templates
+├── customizer.sh               # Template customization script
+└── build.gradle.kts            # Root build configuration
+```
+
+## Contributing
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+## License
+
+```
+Copyright 2024 TEMPLATE_ORG
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+
+## Acknowledgments
+
+- [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html)
+- [Gradle Maven Publish Plugin](https://vanniktech.github.io/gradle-maven-publish-plugin/)
