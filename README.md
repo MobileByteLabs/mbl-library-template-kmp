@@ -119,7 +119,7 @@ bash scripts/setup-hooks.sh
 
 ```
 .
-├── library/                    # Library module
+├── cmp-library/                # Library module
 │   └── src/
 │       ├── commonMain/         # Shared code for all platforms
 │       ├── commonTest/         # Shared tests
@@ -153,7 +153,7 @@ bash scripts/setup-hooks.sh
 
 ### Release Process
 
-1. Update version in `library/build.gradle.kts`
+1. Update version in `cmp-library/build.gradle.kts`
 2. Create a GitHub release with a tag (e.g., `v1.0.0`)
 3. The publish workflow will automatically deploy to Maven Central
 
