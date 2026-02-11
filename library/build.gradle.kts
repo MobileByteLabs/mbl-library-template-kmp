@@ -1,4 +1,6 @@
 import com.android.build.api.dsl.androidLibrary
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -13,11 +15,19 @@ plugins {
 group = "io.github.template"
 version = "1.0.0"
 
+@OptIn(ExperimentalKotlinGradlePluginApi::class, ExperimentalWasmDsl::class)
 kotlin {
-    // JVM target
+    // Apply default hierarchy template for automatic source set setup
+    applyDefaultHierarchyTemplate()
+
+    // ========================================================================
+    // JVM Target
+    // ========================================================================
     jvm()
 
-    // Android target
+    // ========================================================================
+    // Android Target
+    // ========================================================================
     androidLibrary {
         namespace = "io.github.template"
         compileSdk = libs.versions.android.compileSdk.get().toInt()
@@ -36,42 +46,89 @@ kotlin {
         }
     }
 
-    // iOS targets
+    // ========================================================================
+    // iOS Targets
+    // ========================================================================
     iosX64()
     iosArm64()
     iosSimulatorArm64()
 
-    // Linux target
+    // ========================================================================
+    // macOS Targets
+    // ========================================================================
+    macosX64()
+    macosArm64()
+
+    // ========================================================================
+    // tvOS Targets
+    // ========================================================================
+    tvosX64()
+    tvosArm64()
+    tvosSimulatorArm64()
+
+    // ========================================================================
+    // watchOS Targets
+    // ========================================================================
+    watchosX64()
+    watchosArm32()
+    watchosArm64()
+    watchosSimulatorArm64()
+    watchosDeviceArm64()
+
+    // ========================================================================
+    // Linux Targets
+    // ========================================================================
     linuxX64()
+    linuxArm64()
 
-    // macOS targets (optional - uncomment if needed)
-    // macosX64()
-    // macosArm64()
+    // ========================================================================
+    // Windows Target
+    // ========================================================================
+    mingwX64()
 
-    // Windows target (optional - uncomment if needed)
-    // mingwX64()
+    // ========================================================================
+    // JavaScript Target
+    // ========================================================================
+    js {
+        browser {
+            testTask {
+                useKarma {
+                    useChromeHeadless()
+                }
+            }
+        }
+        nodejs()
+    }
 
-    // Source sets configuration
+    // ========================================================================
+    // WebAssembly Targets
+    // ========================================================================
+    wasmJs {
+        browser()
+        nodejs()
+    }
+
+    wasmWasi {
+        nodejs()
+    }
+
+    // ========================================================================
+    // Compiler Options
+    // ========================================================================
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+    }
+
+    // ========================================================================
+    // Source Sets Configuration
+    // ========================================================================
     sourceSets {
         commonMain.dependencies {
             // Add your multiplatform dependencies here
-            // Example: implementation(libs.kotlinx.coroutines.core)
         }
 
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-        }
-
-        androidMain.dependencies {
-            // Android-specific dependencies
-        }
-
-        iosMain.dependencies {
-            // iOS-specific dependencies
-        }
-
-        jvmMain.dependencies {
-            // JVM-specific dependencies
         }
     }
 }

@@ -9,12 +9,18 @@ A Kotlin Multiplatform library for [describe your library purpose here].
 
 ## Supported Platforms
 
-| Platform | Status |
-|----------|--------|
-| Android  | Supported |
-| iOS      | Supported |
-| JVM      | Supported |
-| Linux    | Supported |
+| Platform | Targets |
+|----------|---------|
+| **Android** | Android Library |
+| **iOS** | iosX64, iosArm64, iosSimulatorArm64 |
+| **macOS** | macosX64, macosArm64 |
+| **tvOS** | tvosX64, tvosArm64, tvosSimulatorArm64 |
+| **watchOS** | watchosX64, watchosArm32, watchosArm64, watchosSimulatorArm64, watchosDeviceArm64 |
+| **JVM** | jvm |
+| **Linux** | linuxX64, linuxArm64 |
+| **Windows** | mingwX64 |
+| **JavaScript** | Browser, Node.js |
+| **WebAssembly** | wasmJs (Browser, Node.js), wasmWasi |
 
 ## Installation
 
@@ -31,21 +37,15 @@ kotlin {
 }
 ```
 
-### Platform-specific setup
+### Version Catalog
 
-<details>
-<summary>Android</summary>
+```toml
+[versions]
+template-library = "1.0.0"
 
-No additional setup required.
-
-</details>
-
-<details>
-<summary>iOS</summary>
-
-No additional setup required.
-
-</details>
+[libraries]
+template-library = { module = "TEMPLATE_PACKAGE:template-library", version.ref = "template-library" }
+```
 
 ## Quick Start
 
@@ -59,17 +59,13 @@ fun main() {
 }
 ```
 
-## Documentation
-
-For detailed documentation, visit [Documentation Link].
-
 ## Getting Started with Development
 
 ### Prerequisites
 
 - JDK 17 or higher
 - Android SDK (for Android development)
-- Xcode 15+ (for iOS development, macOS only)
+- Xcode 15+ (for Apple platforms, macOS only)
 
 ### Setup
 
@@ -97,14 +93,16 @@ bash scripts/setup-hooks.sh
 ### Running Tests
 
 ```bash
-# All platforms
+# All platforms (requires macOS for Apple targets)
 ./gradlew allTests
 
 # Specific platforms
 ./gradlew jvmTest
-./gradlew iosSimulatorArm64Test
 ./gradlew testAndroidHostTest
-./gradlew linuxX64Test
+./gradlew iosSimulatorArm64Test
+./gradlew macosArm64Test
+./gradlew jsNodeTest
+./gradlew wasmJsNodeTest
 ```
 
 ### Code Quality
@@ -115,6 +113,29 @@ bash scripts/setup-hooks.sh
 
 # Run static analysis
 ./gradlew detekt
+```
+
+## Project Structure
+
+```
+.
+├── library/                    # Library module
+│   └── src/
+│       ├── commonMain/         # Shared code for all platforms
+│       ├── commonTest/         # Shared tests
+│       ├── androidMain/        # Android-specific code
+│       ├── appleMain/          # Shared Apple code (iOS, macOS, tvOS, watchOS)
+│       ├── jvmMain/            # JVM-specific code
+│       ├── linuxMain/          # Linux-specific code
+│       ├── mingwMain/          # Windows-specific code
+│       ├── jsMain/             # JavaScript-specific code
+│       ├── wasmJsMain/         # WebAssembly JS-specific code
+│       └── wasmWasiMain/       # WebAssembly WASI-specific code
+├── scripts/                    # Automation scripts
+├── config/                     # Detekt configuration
+├── .github/                    # GitHub Actions & templates
+├── customizer.sh               # Template customization script
+└── build.gradle.kts            # Root build configuration
 ```
 
 ## Publishing to Maven Central
@@ -135,31 +156,6 @@ bash scripts/setup-hooks.sh
 1. Update version in `library/build.gradle.kts`
 2. Create a GitHub release with a tag (e.g., `v1.0.0`)
 3. The publish workflow will automatically deploy to Maven Central
-
-## Project Structure
-
-```
-.
-├── library/                    # Library module
-│   └── src/
-│       ├── commonMain/         # Common code
-│       ├── commonTest/         # Common tests
-│       ├── androidMain/        # Android-specific code
-│       ├── iosMain/            # iOS-specific code
-│       ├── jvmMain/            # JVM-specific code
-│       └── linuxX64Main/       # Linux-specific code
-├── scripts/                    # Automation scripts
-│   ├── pre-commit.sh           # Pre-commit hook
-│   ├── pre-push.sh             # Pre-push hook
-│   └── setup-hooks.sh          # Hook setup script
-├── config/
-│   └── detekt/                 # Detekt configuration
-├── .github/
-│   ├── workflows/              # GitHub Actions
-│   └── ISSUE_TEMPLATE/         # Issue templates
-├── customizer.sh               # Template customization script
-└── build.gradle.kts            # Root build configuration
-```
 
 ## Contributing
 
