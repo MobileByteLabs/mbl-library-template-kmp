@@ -123,6 +123,24 @@ bash scripts/setup-hooks.sh
 ./gradlew detekt
 ```
 
+### Sample App
+
+A Compose Multiplatform sample app is included to test the library on all platforms:
+
+```bash
+# Run on Desktop (macOS, Windows, Linux)
+./gradlew :sample-app:run
+
+# Run on Android
+./gradlew :sample-app:installDebug
+
+# Run on iOS (requires Xcode on macOS)
+# Open sample-app in Xcode or use KMM plugin in Android Studio
+
+# Run on Web (WebAssembly)
+./gradlew :sample-app:wasmJsBrowserRun
+```
+
 ## Publishing to Maven Central
 
 ### Prerequisites
@@ -158,6 +176,13 @@ bash scripts/setup-hooks.sh
 │       ├── jsMain/             # JavaScript (Browser, Node.js)
 │       ├── wasmJsMain/         # WebAssembly JS
 │       └── wasmWasiMain/       # WebAssembly WASI
+├── sample-app/                 # Compose Multiplatform sample app
+│   └── src/
+│       ├── commonMain/         # Shared UI code
+│       ├── androidMain/        # Android app entry
+│       ├── desktopMain/        # Desktop app entry
+│       ├── iosMain/            # iOS app entry
+│       └── wasmJsMain/         # Web app entry
 ├── scripts/                    # Automation scripts
 │   ├── pre-commit.sh           # Pre-commit hook
 │   ├── pre-push.sh             # Pre-push hook
@@ -178,7 +203,7 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 ## License
 
 ```
-Copyright 2024 TEMPLATE_ORG
+Copyright 2025 MobileByteLabs
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

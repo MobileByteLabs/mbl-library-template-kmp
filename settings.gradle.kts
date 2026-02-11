@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "template-library"
 include(":cmp-library")
+include(":sample-app")
