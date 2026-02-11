@@ -69,10 +69,8 @@ spotless {
     }
 }
 
-// Task to run all checks
-tasks.register("check") {
-    group = "verification"
-    description = "Runs all checks including Detekt and Spotless"
+// Configure the existing check task to include Detekt and Spotless
+tasks.named("check") {
     dependsOn("detekt", "spotlessCheck")
 }
 
