@@ -12,7 +12,7 @@ Congratulations on creating your new Kotlin Multiplatform library! Follow these 
 4. Fill in:
    - **Package name**: e.g., `com.example.mylibrary`
    - **Library name**: e.g., `MyAwesomeLib`
-   - **Organization**: your GitHub username or organization
+   - **Organization**: (optional - defaults to your GitHub username/org)
 5. Click **"Run workflow"**
 
 The workflow will automatically customize all files and commit the changes.
