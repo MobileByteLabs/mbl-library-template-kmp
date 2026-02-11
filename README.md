@@ -1,11 +1,10 @@
-# TEMPLATE_LIBRARY_NAME
+# KMP Library Template
 
-[![CI](https://github.com/TEMPLATE_ORG/TEMPLATE_REPO/actions/workflows/gradle.yml/badge.svg)](https://github.com/TEMPLATE_ORG/TEMPLATE_REPO/actions/workflows/gradle.yml)
-[![Maven Central](https://img.shields.io/maven-central/v/TEMPLATE_PACKAGE/template-library.svg)](https://central.sonatype.com/artifact/TEMPLATE_PACKAGE/template-library)
+[![CI](https://github.com/MobileByteLabs/mbl-library-template-kmp/actions/workflows/gradle.yml/badge.svg)](https://github.com/MobileByteLabs/mbl-library-template-kmp/actions/workflows/gradle.yml)
 [![Kotlin](https://img.shields.io/badge/kotlin-2.1.0-blue.svg?logo=kotlin)](http://kotlinlang.org)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-A Kotlin Multiplatform library for [describe your library purpose here].
+A template for creating Kotlin Multiplatform libraries with full platform support and Compose Multiplatform sample app.
 
 ## Supported Platforms
 
