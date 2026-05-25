@@ -1,9 +1,9 @@
 ---
-sync_version: "1.0.0"
+sync_version: "1.1.0"
 template_repo: "MobileByteLabs/mbl-library-template-kmp"
 template_branch: "development"
 description: "Sync contract for KMP library template. /lib-template-sync reads this file to know what to sync and how."
-last_updated: "2026-04-19"
+last_updated: "2026-05-25"
 
 syncable_files:
   - path: scripts/setup-hooks.sh
@@ -22,6 +22,10 @@ syncable_files:
     strategy: replace
     executable: true
     description: "CI mirror (--fix/--check/--quick/--ci/--full) + --platforms + --local"
+  - path: scripts/ci-local.sh
+    strategy: replace
+    executable: true
+    description: "Local CI runner — delegates to framework-level ci-local.sh (fast gate: quality + JVM + Linux)"
   - path: scripts/release.sh
     strategy: replace
     executable: true
@@ -114,3 +118,4 @@ No framework changes needed. SYNC.md IS the contract.
 | Version | Date | Changes |
 |---------|------|---------|
 | 1.0.0 | 2026-04-19 | Initial sync contract — 5 scripts, 2 workflows, 2 configs |
+| 1.1.0 | 2026-05-25 | Add scripts/ci-local.sh — local CI runner delegating to framework |
