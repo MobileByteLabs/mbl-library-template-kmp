@@ -68,6 +68,9 @@ jobs:
           - name: Linux
             target: linuxX64Test
             os: ubuntu-latest
+          - name: Android Host Tests
+            target: testAndroidHostTest
+            os: ubuntu-latest
     runs-on: ${{ matrix.os }}
 
     steps:
