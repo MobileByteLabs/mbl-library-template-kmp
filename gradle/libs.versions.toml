@@ -1,23 +1,23 @@
 [versions]
-agp = "8.7.3"
-kotlin = "2.1.0"
-compose-multiplatform = "1.7.3"
+agp = "9.0.1"
+kotlin = "2.3.10"
+compose-multiplatform = "1.10.3"
 android-minSdk = "24"
-android-compileSdk = "35"
-android-targetSdk = "35"
-vanniktechMavenPublish = "0.30.0"
+android-compileSdk = "36"
+android-targetSdk = "36"
+vanniktechMavenPublish = "0.36.0"
 
 # Code Quality
-detekt = "1.23.7"
-spotless = "6.25.0"
-ktlint = "1.5.0"
+detekt = "1.23.8"
+spotless = "7.0.4"
+ktlint = "1.8.0"
 
 # Testing
 junit = "4.13.2"
-coroutines = "1.9.0"
+coroutines = "1.10.2"
 
 # AndroidX
-androidx-activityCompose = "1.9.3"
+androidx-activityCompose = "1.10.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
