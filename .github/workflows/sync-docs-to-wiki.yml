@@ -1,24 +1,29 @@
 # Mirror docs/ → GitHub Wiki on every push to development.
 #
-# Pre-requisite (one-time per consumer repo — must be done in GitHub UI):
+# Pre-requisite (one-time, must be done in GitHub UI):
 #   1. Settings → Features → Wikis (checkbox enabled)
 #   2. Create the first Wiki page (any content — e.g. "Home" with "TBD"). This
-#      step initializes the underlying `<repo>.wiki.git`. Without it, the sync
-#      action below fails with `Repository not found` because GitHub doesn't
-#      create the wiki repo until the first page exists.
+#      step initializes the underlying `{repo}.wiki.git` repo. Without it,
+#      the sync action below fails with `Repository not found`.
 #
-# After that, every push to development that touches docs/** publishes the
-# updated tree to the wiki. The wiki tree mirrors docs/ verbatim:
-#   docs/Home.md                              → Wiki Home page
-#   docs/_Sidebar.md                          → Wiki Sidebar
-#   docs/getting-started/installation.md      → Wiki page at /getting-started/installation
+# What this workflow does
+# -----------------------
+# 1. Run `.github/scripts/rewrite-wiki-links.py` to copy docs/ → .wiki-build/
+#    while rewriting internal `.md` links to absolute /wiki/{basename} URLs.
+#    GitHub Wiki indexes every .md by basename (subdir context dropped), so
+#    relative links like `[text](sub-dir/file.md)` and `[text](file.md)`
+#    BREAK on the wiki. The script fixes them.
+# 2. Run a smoke test to catch script regressions.
+# 3. Hand .wiki-build/ to the wiki sync action.
+#
+# Wiki layout: every doc lives at /wiki/{basename}. e.g.:
+#   docs/Home.md                      → /wiki/Home
+#   docs/_Sidebar.md                  → /wiki/_Sidebar
+#   docs/getting-started/install.md   → /wiki/install
+#   docs/features/notifications.md    → /wiki/notifications
 #   …etc.
 #
-# Manual dispatch is also supported for ad-hoc syncs.
-#
-# This workflow ships in mbl-library-template-kmp so every child library
-# inherits it via `customizer.sh` or template GitHub copy. No per-repo edits
-# needed — just enable the wiki once in the GitHub UI.
+# Manual dispatch is supported for ad-hoc syncs.
 
 name: Sync docs to Wiki
 
@@ -29,6 +34,7 @@ on:
     paths:
       - 'docs/**'
       - '.github/workflows/sync-docs-to-wiki.yml'
+      - '.github/scripts/rewrite-wiki-links.py'
   workflow_dispatch:
 
 permissions:
@@ -41,11 +47,29 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Push docs/ to wiki
+      - name: Rewrite docs/ links → /wiki/ URLs (build .wiki-build/)
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python3 .github/scripts/rewrite-wiki-links.py docs .wiki-build
+
+      - name: Smoke test — rewrite produced expected output
+        run: |
+          # .wiki-build/ must exist and be non-empty
+          if [ ! -d .wiki-build ] || [ -z "$(ls -A .wiki-build)" ]; then
+            echo "::error::.wiki-build/ missing or empty — script failed silently"
+            exit 1
+          fi
+          # At least one rewritten link in any of the files (otherwise the script
+          # is broken OR docs/ has zero in-tree .md links — both worth a manual check).
+          # The smoke is best-effort: if docs/ legitimately has zero internal links
+          # this will fail; comment out in that case.
+          if ! grep -rqE "https://github\.com/.+/wiki/[A-Za-z0-9._-]+" .wiki-build/; then
+            echo "::warning::No rewritten /wiki/ links found in .wiki-build/. Either docs/ has zero in-tree .md links or the rewriter is broken."
+          fi
+          echo "Wiki build verified ✓"
+
+      - name: Push .wiki-build/ to wiki
         uses: Andrew-Chen-Wang/github-wiki-action@v4
         with:
-          path: docs
-          # Default branch of the wiki repo is `master`; keep that to avoid
-          # creating a second branch.
-          default-branch: master
+          path: .wiki-build
           token: ${{ secrets.GITHUB_TOKEN }}

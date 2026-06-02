@@ -42,6 +42,13 @@ syncable_files:
       - "on.release"
       - "env secrets"
     description: "Maven Central publish — multi-module auto-discovery + parallel"
+  - path: .github/workflows/sync-docs-to-wiki.yml
+    strategy: replace
+    description: "Mirror docs/ → GitHub Wiki — collision-safe link rewriter + smoke test"
+  - path: .github/scripts/rewrite-wiki-links.py
+    strategy: replace
+    executable: true
+    description: "Wiki link rewriter (called by sync-docs-to-wiki.yml). Portable — auto-derives wiki URL from $GITHUB_REPOSITORY or origin remote"
   - path: config/detekt/detekt.yml
     strategy: replace
     description: "Detekt static analysis configuration"
