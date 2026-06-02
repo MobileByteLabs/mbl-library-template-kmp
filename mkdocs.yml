@@ -37,8 +37,12 @@ extra_css:
 
 # Wiki-only constructs (consumed by sync-docs-to-wiki.yml). Exclude from
 # the mkdocs site since they don't belong in the canonical nav.
+# Home.md is wiki's home page (basename-indexed). mkdocs needs index.md
+# for the root URL — same content lives in both files; exclude Home.md
+# here to avoid a redundant /Home/ page in the rendered site.
 exclude_docs: |
   _Sidebar.md
+  Home.md
 
 markdown_extensions:
   - admonition
@@ -67,7 +71,7 @@ validation:
 # example: Getting started / Features / Platform support / Operations /
 # Release. Drop the ones you don't need.
 nav:
-  - Home: Home.md
+  - Home: index.md
   # - Getting started:
   #     - Installation: getting-started/installation.md
   #     - Quick start: getting-started/quick-start.md
