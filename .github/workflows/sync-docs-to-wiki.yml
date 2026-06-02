@@ -1,18 +1,5 @@
-# Mirror docs/ → GitHub Wiki via the reusable workflow in mbl-actionhub.
-#
-# The actual logic (link rewriter, collision-safe slugs, auto-generated
-# _Sidebar.md, wiki push) lives in mbl-actionhub at
-# .github/workflows/sync-docs-to-wiki.yml. We just call it.
-#
-# Pin policy: stay on a fixed @v1.x.x tag so consumers of this template
-# inherit the same version. Bump when mbl-actionhub cuts a new feature
-# release and we've reviewed the diff.
-#
-# Caller bootstrap (one-time, in the GitHub UI of every child library):
-#   Settings → Features → Wikis (enabled) →
-#     open Wiki tab → "Create the first page" → save anything ("Home" / "TBD")
-# Without this, the wiki repo doesn't exist and the first run fails with
-# "Repository not found".
+# Mirror docs/ → GitHub Wiki via the reusable workflow in mbl-actionhub-docshub.
+# Logic lives in mbl-actionhub-docshub@v0.1.0; this file only configures triggers.
 
 name: Sync docs to Wiki
 
@@ -30,4 +17,4 @@ permissions:
 
 jobs:
   sync:
-    uses: MobileByteLabs/mbl-actionhub/.github/workflows/sync-docs-to-wiki.yml@v1.8.0
+    uses: MobileByteLabs/mbl-actionhub-docshub/.github/workflows/sync-docs-to-wiki.yml@v0.1.0
