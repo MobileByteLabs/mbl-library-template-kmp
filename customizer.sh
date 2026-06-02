@@ -180,6 +180,31 @@ update_library_build_gradle() {
     print_success "Updated library build configuration"
 }
 
+# Update mkdocs.yml to substitute TEMPLATE_* placeholders
+update_mkdocs_config() {
+    print_section "Updating mkdocs.yml"
+
+    local mkdocs_file="mkdocs.yml"
+    if [ ! -f "$mkdocs_file" ]; then
+        print_warning "mkdocs.yml not found — skipping"
+        return 0
+    fi
+
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        sed -i '' "s|TEMPLATE_LIBRARY_NAME|$LIBRARY_NAME|g" "$mkdocs_file"
+        sed -i '' "s|TEMPLATE_DESCRIPTION|$LIBRARY_NAME - A Kotlin Multiplatform library|g" "$mkdocs_file"
+        sed -i '' "s|TEMPLATE_ORG|$ORGANIZATION|g" "$mkdocs_file"
+        sed -i '' "s|TEMPLATE_REPO|$LIBRARY_NAME_LOWERCASE|g" "$mkdocs_file"
+    else
+        sed -i "s|TEMPLATE_LIBRARY_NAME|$LIBRARY_NAME|g" "$mkdocs_file"
+        sed -i "s|TEMPLATE_DESCRIPTION|$LIBRARY_NAME - A Kotlin Multiplatform library|g" "$mkdocs_file"
+        sed -i "s|TEMPLATE_ORG|$ORGANIZATION|g" "$mkdocs_file"
+        sed -i "s|TEMPLATE_REPO|$LIBRARY_NAME_LOWERCASE|g" "$mkdocs_file"
+    fi
+
+    print_success "Updated mkdocs.yml"
+}
+
 # Update Kotlin source files
 update_kotlin_sources() {
     print_section "Updating Kotlin Source Files"
@@ -391,6 +416,7 @@ main() {
     update_imports
     update_readme
     update_github_workflows
+    update_mkdocs_config
     setup_git_hooks
     cleanup
     print_final_summary

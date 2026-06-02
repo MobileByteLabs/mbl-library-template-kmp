@@ -36,6 +36,11 @@ SYNC_FILES=(
     "build.gradle.kts"
     "gradle.properties"
 )
+# Note: mkdocs.yml is intentionally NOT sync'd — each consumer customizes
+# site_name / nav / palette after customizer.sh runs. The .github/workflows/
+# docs-publish.yml caller IS auto-sync'd via the SYNC_DIRS '.github' entry,
+# so upstream version-pin bumps (actionhub@v1.9.0 → v1.10.0) propagate
+# automatically.
 
 # Define exclusions for directories and files
 # Format: "path/to/exclude:type"
