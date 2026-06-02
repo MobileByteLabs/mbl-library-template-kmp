@@ -44,11 +44,7 @@ syncable_files:
     description: "Maven Central publish — multi-module auto-discovery + parallel"
   - path: .github/workflows/sync-docs-to-wiki.yml
     strategy: replace
-    description: "Mirror docs/ → GitHub Wiki — collision-safe link rewriter + smoke test"
-  - path: .github/scripts/rewrite-wiki-links.py
-    strategy: replace
-    executable: true
-    description: "Wiki link rewriter (called by sync-docs-to-wiki.yml). Portable — auto-derives wiki URL from $GITHUB_REPOSITORY or origin remote"
+    description: "Mirror docs/ → GitHub Wiki — thin caller that uses MobileByteLabs/mbl-actionhub/.github/workflows/sync-docs-to-wiki.yml@v1.8.0. All logic (link rewriter + auto-sidebar) lives in mbl-actionhub; consumers just pin a version."
   - path: config/detekt/detekt.yml
     strategy: replace
     description: "Detekt static analysis configuration"
