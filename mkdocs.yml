@@ -72,6 +72,9 @@ validation:
 # Release. Drop the ones you don't need.
 nav:
   - Home: index.md
+  - Contributing:
+      - Docs guide (template): DEVELOPMENT-TEMPLATE.md
+      - Docs guide (project): DEVELOPMENT.md
   # - Getting started:
   #     - Installation: getting-started/installation.md
   #     - Quick start: getting-started/quick-start.md

@@ -35,12 +35,17 @@ SYNC_FILES=(
     "ci-prepush.sh"
     "build.gradle.kts"
     "gradle.properties"
+    "docs/DEVELOPMENT-TEMPLATE.md"
 )
-# Note: mkdocs.yml is intentionally NOT sync'd — each consumer customizes
-# site_name / nav / palette after customizer.sh runs. The .github/workflows/
-# docs-publish.yml caller IS auto-sync'd via the SYNC_DIRS '.github' entry,
-# so upstream version-pin bumps (actionhub@v1.9.0 → v1.10.0) propagate
-# automatically.
+# Notes:
+# - mkdocs.yml is intentionally NOT sync'd — each consumer customizes
+#   site_name / nav / palette after customizer.sh runs.
+# - docs/DEVELOPMENT.md is intentionally NOT sync'd — that's the per-project
+#   authoring guide owned by each consumer (extensions on top of the generic
+#   DEVELOPMENT-TEMPLATE.md). Only DEVELOPMENT-TEMPLATE.md (above) is sync'd.
+# - The .github/workflows/docs-publish.yml caller IS auto-sync'd via the
+#   SYNC_DIRS '.github' entry, so upstream version-pin bumps (actionhub@v1.9.0
+#   → v1.10.0) propagate automatically.
 
 # Define exclusions for directories and files
 # Format: "path/to/exclude:type"
